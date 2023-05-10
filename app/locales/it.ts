@@ -135,7 +135,7 @@ const it: LocaleType = {
       SubTitle:
         "Comprimerà se la lunghezza dei messaggi non compressi supera il valore",
     },
-    Token: {
+    UserApiKey: {
       Title: "API Key",
       SubTitle:
         "Utilizzare la chiave per ignorare il limite del codice di accesso",

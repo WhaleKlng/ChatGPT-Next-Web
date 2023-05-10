@@ -135,7 +135,7 @@ const tr: LocaleType = {
       SubTitle:
         "Sıkıştırılmamış mesajların uzunluğu bu değeri aşarsa sıkıştırılır",
     },
-    Token: {
+    UserApiKey: {
       Title: "API Anahtarı",
       SubTitle: "Erişim kodu sınırını yoksaymak için anahtarınızı kullanın",
       Placeholder: "OpenAI API Anahtarı",

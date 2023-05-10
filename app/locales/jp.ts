@@ -137,7 +137,7 @@ const jp: LocaleType = {
       SubTitle:
         "圧縮されていない履歴メッセージがこの値を超えた場合、圧縮が行われます。",
     },
-    Token: {
+    UserApiKey: {
       Title: "APIキー",
       SubTitle: "自分のキーを使用してパスワードアクセス制限を迂回する",
       Placeholder: "OpenAI APIキー",
