@@ -8,7 +8,6 @@ import {
   useChatStore,
 } from "./store";
 import { showToast } from "./components/ui-lib";
-import { ACCESS_CODE_PREFIX } from "./constant";
 
 const TIME_OUT_MS = 60000;
 
@@ -42,24 +41,20 @@ const makeRequestParam = (
     presence_penalty: modelConfig.presence_penalty,
   };
 };
+const makeBearer = (token: string) => `Bearer ${token.trim()}`;
+const validString = (x: string) => x && x.length > 0;
 
 function getHeaders() {
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {};
 
-  const makeBearer = (token: string) => `Bearer ${token.trim()}`;
-  const validString = (x: string) => x && x.length > 0;
-
   // use user's api key first
+  if (validString(accessStore.userApiKey)) {
+    headers.UserApiKey = makeBearer(accessStore.userApiKey);
+  }
+
   if (validString(accessStore.token)) {
     headers.Authorization = makeBearer(accessStore.token);
-  } else if (
-    accessStore.enabledAccessControl() &&
-    validString(accessStore.accessCode)
-  ) {
-    headers.Authorization = makeBearer(
-      ACCESS_CODE_PREFIX + accessStore.accessCode,
-    );
   }
 
   return headers;

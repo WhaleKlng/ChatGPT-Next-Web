@@ -5,16 +5,15 @@ import { BOT_HELLO } from "./chat";
 import { ALL_MODELS } from "./config";
 
 export interface AccessControlStore {
-  accessCode: string;
+  //  用户token
   token: string;
-
-  needCode: boolean;
+  //用户ApiKey
+  userApiKey: string;
   hideUserApiKey: boolean;
   openaiUrl: string;
 
   updateToken: (_: string) => void;
-  updateCode: (_: string) => void;
-  enabledAccessControl: () => boolean;
+  updateUserApiKey: (_: string) => void;
   isAuthorized: () => boolean;
   fetch: () => void;
 }
@@ -25,29 +24,21 @@ export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
       token: "",
-      accessCode: "",
-      needCode: true,
+      userApiKey: "",
       hideUserApiKey: false,
       openaiUrl: "/api/openai/",
 
-      enabledAccessControl() {
-        get().fetch();
-
-        return get().needCode;
-      },
-      updateCode(code: string) {
-        set(() => ({ accessCode: code }));
-      },
       updateToken(token: string) {
         set(() => ({ token }));
+      },
+      updateUserApiKey(apiKey: string) {
+        set(() => ({ userApiKey: apiKey }));
       },
       isAuthorized() {
         get().fetch();
 
         // has token or has code or disabled access control
-        return (
-          !!get().token || !!get().accessCode || !get().enabledAccessControl()
-        );
+        return !!get().userApiKey || !!get().token;
       },
       fetch() {
         if (fetchState > 0) return;
