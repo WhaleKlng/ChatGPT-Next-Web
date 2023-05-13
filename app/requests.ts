@@ -41,17 +41,12 @@ const makeRequestParam = (
     presence_penalty: modelConfig.presence_penalty,
   };
 };
-const makeBearer = (token: string) => `${token.trim()}`;
+const makeBearer = (token: string) => `Bearer ${token.trim()}`;
 const validString = (x: string) => x && x.length > 0;
 
 function getHeaders() {
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {};
-
-  // use user's api key first
-  if (validString(accessStore.userApiKey)) {
-    headers.UserApiKey = makeBearer(accessStore.userApiKey);
-  }
 
   if (validString(accessStore.token)) {
     headers.Authorization = makeBearer(accessStore.token);

@@ -13,21 +13,14 @@ function getIP(req: NextRequest) {
 }
 
 export function auth(req: NextRequest) {
-  const userApiKey = req.headers.get("UserApiKey") ?? "";
-  // if 用户自己设置了ApiKey ，直接使用其自己的
-  if (userApiKey) {
-    req.headers.set("Authorization", `Bearer ${userApiKey}`);
-    return { error: false };
-  }
   const authToken = req.headers.get("Authorization") ?? "";
-
-  // todo 执行用户身份验证
   if (!authToken) {
     return {
       error: true,
       msg: "用户未登陆.",
     };
   }
+  // todo 执行用户身份验证
 
   // 注入系统APIKEY
   const apiKey = getServerApiKey();

@@ -8,12 +8,10 @@ export interface AccessControlStore {
   //  用户token
   token: string;
   //用户ApiKey
-  userApiKey: string;
   hideUserApiKey: boolean;
   openaiUrl: string;
 
   updateToken: (_: string) => void;
-  updateUserApiKey: (_: string) => void;
   isAuthorized: () => boolean;
   fetch: () => void;
 }
@@ -24,21 +22,19 @@ export const useAccessStore = create<AccessControlStore>()(
   persist(
     (set, get) => ({
       token: "",
-      userApiKey: "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",
+      userApiKey: "",
       hideUserApiKey: true,
       openaiUrl: "/api/openai/",
 
       updateToken(token: string) {
         set(() => ({ token }));
       },
-      updateUserApiKey(apiKey: string) {
-        set(() => ({ userApiKey: apiKey }));
-      },
+
       isAuthorized() {
         get().fetch();
 
         // has token or has code or disabled access control
-        return !!get().userApiKey || !!get().token;
+        return !!get().token;
       },
       fetch() {
         if (fetchState > 0) return;
