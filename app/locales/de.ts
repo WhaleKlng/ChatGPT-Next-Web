@@ -235,6 +235,15 @@ const de: LocaleType = {
     NotShow: "Not Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
   },
+  Login: {
+    Title: "Bitte einloggen",
+    SubTitle:
+      "Guten Tag und willkommen beim AI-Dialogsystem! Wie kann ich Ihnen heute helfen?",
+    UserNamePlaceholder: "Benutzername / Telefonnummer.",
+    PasswordPlaceholder: "Passwort",
+    Done: "Anmelden",
+    Register: "Registrieren",
+  },
 
   UI: {
     Confirm: "Confirm",

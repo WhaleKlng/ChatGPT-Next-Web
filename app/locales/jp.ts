@@ -232,6 +232,14 @@ const jp: LocaleType = {
     ConfirmNoShow: "确认禁用？禁用后可以随时在设置中重新启用。",
   },
 
+  Login: {
+    Title: "ログインしてください",
+    SubTitle: "AI対話システムをご利用いただきありがとうございます",
+    UserNamePlaceholder: "ユーザー名または携帯番号",
+    PasswordPlaceholder: "パスワード",
+    Done: "ログイン",
+    Register: "登録",
+  },
   UI: {
     Confirm: "确认",
     Cancel: "取消",

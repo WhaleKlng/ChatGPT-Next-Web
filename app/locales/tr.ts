@@ -233,6 +233,14 @@ const tr: LocaleType = {
     NotShow: "Not Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
   },
+  Login: {
+    Title: "Oturum açın",
+    SubTitle: "AI sohbet sistemini kullanmaktan memnuniyet duyuyoruz",
+    UserNamePlaceholder: "Kullanıcı adı / cep numarası",
+    PasswordPlaceholder: "Parola",
+    Done: "Giriş Yap",
+    Register: "Kayıt ol",
+  },
 
   UI: {
     Confirm: "Confirm",

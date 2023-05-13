@@ -229,6 +229,14 @@ const vi: LocaleType = {
     NotShow: "Không hiển thị lại",
     ConfirmNoShow: "Xác nhận tắt? Bạn có thể bật lại trong phần cài đặt.",
   },
+  Login: {
+    Title: "Vui lòng đăng nhập",
+    SubTitle: "Chào mừng sử dụng hệ thống trò chuyện trí tuệ nhân tạo",
+    UserNamePlaceholder: "Tên đăng nhập/Số điện thoại",
+    PasswordPlaceholder: "Mật khẩu",
+    Done: "Đăng nhập",
+    Register: "Đăng ký",
+  },
 
   UI: {
     Confirm: "Xác nhận",
