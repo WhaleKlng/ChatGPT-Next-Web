@@ -359,7 +359,7 @@ export function ChatActions(props: {
         </div>
       )}
 
-      <div
+      {/* <div
         className={`${chatStyle["chat-input-action"]} clickable`}
         onClick={nextTheme}
       >
@@ -370,7 +370,7 @@ export function ChatActions(props: {
         ) : theme === Theme.Dark ? (
           <DarkIcon />
         ) : null}
-      </div>
+      </div> */}
 
       <div
         className={`${chatStyle["chat-input-action"]} clickable`}
@@ -557,9 +557,9 @@ export function Chat() {
     session.messages.at(0)?.content !== BOT_HELLO.content
   ) {
     const copiedHello = Object.assign({}, BOT_HELLO);
-    if (!accessStore.isAuthorized()) {
-      copiedHello.content = Locale.Error.Unauthorized;
-    }
+    // if (!accessStore.isAuthorized()) {
+    //   copiedHello.content = Locale.Error.Unauthorized;
+    // }
     context.push(copiedHello);
   }
 
@@ -643,7 +643,7 @@ export function Chat() {
               onClick={renameSession}
             />
           </div>
-          <div className="window-action-button">
+          {/* <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}
               bordered
@@ -655,7 +655,7 @@ export function Chat() {
                 );
               }}
             />
-          </div>
+          </div> */}
           {!isMobileScreen && (
             <div className="window-action-button">
               <IconButton

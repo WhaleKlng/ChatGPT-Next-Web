@@ -124,7 +124,7 @@ export function SideBar(props: { className?: string }) {
       <div className={styles["sidebar-header"]}>
         <div className={styles["sidebar-title"]}>鑫誉隆AI-Chat</div>
         <div className={styles["sidebar-sub-title"]}>
-          基于chatGPT3.5&chatGPt4.0.
+          基于chatGPT3.5 & chatGPt4.0
         </div>
         <div className={styles["sidebar-logo"] + " no-dark"}>
           <ChatGptIcon />
@@ -139,13 +139,13 @@ export function SideBar(props: { className?: string }) {
           onClick={() => navigate(Path.NewChat, { state: { fromHome: true } })}
           shadow
         />
-        <IconButton
+        {/* <IconButton
           icon={<PluginIcon />}
           text={shouldNarrow ? undefined : Locale.Plugin.Name}
           className={styles["sidebar-bar-button"]}
           onClick={() => showToast(Locale.WIP)}
           shadow
-        />
+        /> */}
       </div>
 
       <div
@@ -175,14 +175,15 @@ export function SideBar(props: { className?: string }) {
             <IconButton
               icon={<SignInIcon />}
               onClick={() => {
-                setShowSignIn(true);
+                // setShowSignIn(true);
+                navigate(Path.Login, { state: { fromHome: true } });
               }}
               shadow
             />
           </div>
-          <div className={styles["sidebar-action"]}>
+          {/* <div className={styles["sidebar-action"]}>
             <IconButton icon={<BalanceIcon />} shadow />
-          </div>
+          </div> */}
           <div className={styles["sidebar-action"]}>
             <Link to={Path.Settings}>
               <IconButton icon={<SettingsIcon />} shadow />

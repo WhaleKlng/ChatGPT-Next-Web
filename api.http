@@ -1,0 +1,49 @@
+### 发送验证码
+@URL=https://chat.xinyulong.top/
+POST {{URL}}/user/sendVerificationCode
+Content-Type: application/json
+
+{
+  "phoneNumber": "17682168623",
+  "verificationType": "REGISTER_USER"
+}
+
+### 注册
+POST {{URL}}/user/register
+Content-Type: application/json
+
+{
+  "phoneNumber": "17682168623",
+  "password": "1234567xs",
+  "verificationCode": "8623"
+}
+
+### 登陆
+POST {{URL}}/user/login
+Content-Type: application/json
+
+{
+  "phoneNumber": "17816123572",
+  "password": "991023aaa"
+}
+
+###
+POST {{URL}}/user/sendVerificationCode
+Content-Type: application/json
+
+{
+  "phoneNumber": "17816123572",
+  "verificationType": "RETRIEVE_PASSWORD"
+}
+
+
+
+### 注册
+POST {{URL}}/user/retrievePassword
+Content-Type: application/json
+
+{
+  "phoneNumber": "17816123572",
+  "password": "991023aaa",
+  "verificationCode": "1781"
+}

@@ -229,6 +229,15 @@ const cn = {
     More: "查看全部",
   },
 
+  Login: {
+    Title: "请登录",
+    SubTitle: "欢迎使用AI对话系统",
+    UserNamePlaceholder: "用户名/手机号",
+    PasswordPlaceholder: "密码",
+    Done: "登录",
+    Register: "注册",
+  },
+
   UI: {
     Confirm: "确认",
     Cancel: "取消",

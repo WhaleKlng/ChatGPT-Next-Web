@@ -41,7 +41,7 @@ const makeRequestParam = (
     presence_penalty: modelConfig.presence_penalty,
   };
 };
-const makeBearer = (token: string) => `Bearer ${token.trim()}`;
+const makeBearer = (token: string) => `${token.trim()}`;
 const validString = (x: string) => x && x.length > 0;
 
 function getHeaders() {
