@@ -426,24 +426,6 @@ export function Settings() {
         </List>
 
         <List>
-          {!accessStore.hideUserApiKey ? (
-            <ListItem
-              title={Locale.Settings.UserApiKey.Title}
-              subTitle={Locale.Settings.UserApiKey.SubTitle}
-            >
-              <PasswordInput
-                value={accessStore.userApiKey}
-                type="text"
-                placeholder={Locale.Settings.UserApiKey.Placeholder}
-                onChange={(e) => {
-                  accessStore.updateUserApiKey(e.currentTarget.value);
-                }}
-              />
-            </ListItem>
-          ) : null}
-        </List>
-
-        <List>
           <ListItem
             title={Locale.Settings.Prompt.Disable.Title}
             subTitle={Locale.Settings.Prompt.Disable.SubTitle}

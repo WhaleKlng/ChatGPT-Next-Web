@@ -232,6 +232,14 @@ const es: LocaleType = {
     NotShow: "Not Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
   },
+  Login: {
+    Title: "Iniciar sesión",
+    SubTitle: "Bienvenido al sistema de chat de IA",
+    UserNamePlaceholder: "Nombre de usuario / número de teléfono",
+    PasswordPlaceholder: "Contraseña",
+    Done: "Acceder",
+    Register: "Registrarse",
+  },
 
   UI: {
     Confirm: "Confirm",

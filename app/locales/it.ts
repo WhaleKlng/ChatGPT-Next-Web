@@ -233,6 +233,14 @@ const it: LocaleType = {
     NotShow: "Not Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",
   },
+  Login: {
+    Title: "Accedi",
+    SubTitle: "Benvenuto nel sistema di chat AI",
+    UserNamePlaceholder: "Nome utente / numero di telefono",
+    PasswordPlaceholder: "Password",
+    Done: "Accedi",
+    Register: "Registrati",
+  },
 
   UI: {
     Confirm: "Confirm",

@@ -224,6 +224,14 @@ const tw: LocaleType = {
     NotShow: "不再展示",
     ConfirmNoShow: "确认禁用？禁用后可以随时在设置中重新启用。",
   },
+  Login: {
+    Title: "請登錄",
+    SubTitle: "歡迎使用AI對話系統",
+    UserNamePlaceholder: "用戶名/手機號",
+    PasswordPlaceholder: "密碼",
+    Done: "登錄",
+    Register: "註冊",
+  },
   UI: {
     Confirm: "确认",
     Cancel: "取消",
