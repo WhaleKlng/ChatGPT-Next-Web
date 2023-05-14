@@ -48,6 +48,8 @@ function getHeaders() {
   const accessStore = useAccessStore.getState();
   let headers: Record<string, string> = {};
 
+  console.log(123456);
+
   // use user's api key first
   if (validString(accessStore.userApiKey)) {
     headers.UserApiKey = makeBearer(accessStore.userApiKey);

@@ -3,8 +3,7 @@ import { SubmitKey } from "../store/config";
 const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
-    Unauthorized:
-      "您还未登陆哟(＾Ｕ＾)ノ~ＹＯ，请进行登陆&注册以获取访问，或者填入你自己的 OpenAI API Key。",
+    Unauthorized: "您还未登陆哟(＾Ｕ＾)ノ~ＹＯ，请进行登陆以获取访问",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -229,13 +228,27 @@ const cn = {
     More: "查看全部",
   },
 
+  Logined: {
+    Title: "您已登录",
+    SubTitle: "敬请享受AI对话的乐趣吧",
+    Logout: "退出登录",
+    BackHome: "前往主页",
+  },
+
   Login: {
     Title: "请登录",
+    RegisterTitle: "欢迎注册",
     SubTitle: "欢迎使用AI对话系统",
+    RegisterSubTitle: "欢迎注册使用AI对话系统",
     UserNamePlaceholder: "用户名/手机号",
+    RegisterPhonePlaceholder: "请输入手机号",
+    RegisterPlaceholder: "请输入验证码",
     PasswordPlaceholder: "密码",
     Done: "登录",
     Register: "注册",
+    RegisterConfirm: "完成",
+    GetCode: "获取验证码",
+    Login: "返回登录",
   },
 
   UI: {

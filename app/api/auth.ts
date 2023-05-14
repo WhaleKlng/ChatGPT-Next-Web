@@ -13,6 +13,8 @@ function getIP(req: NextRequest) {
 }
 
 export function auth(req: NextRequest) {
+  console.log(1234567);
+
   const userApiKey = req.headers.get("UserApiKey") ?? "";
   // if 用户自己设置了ApiKey ，直接使用其自己的
   if (userApiKey) {
@@ -28,6 +30,8 @@ export function auth(req: NextRequest) {
       msg: "用户未登陆.",
     };
   }
+
+  console.log("等待登录");
 
   // 注入系统APIKEY
   const apiKey = getServerApiKey();

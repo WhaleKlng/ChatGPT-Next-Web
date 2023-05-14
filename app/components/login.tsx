@@ -12,9 +12,11 @@ import EyeOffIcon from "../icons/eye-off.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Mask, useMaskStore } from "../store/mask";
 import Locale from "../locales";
-import { useAppConfig, useChatStore } from "../store";
+import { useAccessStore, useAppConfig, useChatStore } from "../store";
 import { MaskAvatar } from "./mask";
 import { useCommand } from "../command";
+import { Toast } from "@/app/components/ui-lib";
+import tr from "@/app/locales/tr";
 
 function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
   const xmin = Math.max(aRect.x, bRect.x);
@@ -110,6 +112,10 @@ export function Login() {
 
   //   let showPassword = true;
   const [showPassword, setShowPassword] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
+
+  const [loginName, setLoginName] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   const startChat = (mask?: Mask) => {
     chatStore.newSession(mask);
@@ -149,35 +155,124 @@ export function Login() {
     );
   }
 
-  return (
-    <div className={styles["new-chat"]}>
-      <div className={styles["title"]}>{Locale.Login.Title}</div>
-      <div className={styles["sub-title"]}>{Locale.Login.SubTitle}</div>
+  const [token, updateToken, login] = useAccessStore((state) => [
+    state.token,
+    state.updateToken,
+    state.login,
+  ]);
+  const [loginFail, setLoginFail] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
-      <div className="">
-        <input type="text" placeholder={Locale.Login.UserNamePlaceholder} />
+  return token != "" ? (
+    <div className={styles["new-chat"]}>
+      <div className={styles["title"]}>{Locale.Logined.Title}</div>
+      <div className={styles["sub-title"]}>{Locale.Logined.SubTitle}</div>
+      <div className={styles["actions"]}>
+        <IconButton
+          className={styles["register-btn"]}
+          text={Locale.Logined.Logout}
+          bordered
+          onClick={() => updateToken("")}
+          shadow
+        />
+        <IconButton
+          className={styles["register-btn"]}
+          text={Locale.Logined.BackHome}
+          bordered
+          type="primary"
+          onClick={() => navigate(Path.Home)}
+          shadow
+        />
       </div>
+    </div>
+  ) : (
+    <div className={styles["new-chat"]}>
+      <div className={styles["title"]}>
+        {isRegister ? Locale.Login.RegisterTitle : Locale.Login.Title}
+      </div>
+      <div className={styles["sub-title"]}>
+        {isRegister ? Locale.Login.RegisterSubTitle : Locale.Login.SubTitle}
+      </div>
+      <div className="">
+        <input
+          type="text"
+          value={loginName}
+          onChange={(e) => setLoginName(e.target.value)}
+          placeholder={
+            isRegister
+              ? Locale.Login.RegisterPhonePlaceholder
+              : Locale.Login.UserNamePlaceholder
+          }
+        />
+      </div>
+      {isRegister ? (
+        <div className={styles["verify_code"]}>
+          <input type="text" placeholder={Locale.Login.RegisterPlaceholder} />
+          <IconButton
+            className={styles["get_code"]}
+            text={Locale.Login.GetCode}
+          />
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div className={styles["input"]}>
         <input
           type={showPassword ? "text" : "password"}
+          value={loginPassword}
+          onChange={(e) => setLoginPassword(e.target.value)}
           placeholder={Locale.Login.PasswordPlaceholder}
         />
         <EyeButton showPassword={showPassword} />
+      </div>
+      <div>
+        {loginFail ? (
+          <div className={styles["login-fail"]}>
+            登录失败，请检查你的账号和密码
+          </div>
+        ) : (
+          <div></div>
+        )}
+      </div>
+      <div>
+        {loginSuccess ? (
+          <div className={styles["login-success"]}>登录成功！</div>
+        ) : (
+          <div></div>
+        )}
       </div>
 
       <div className={styles["actions"]}>
         <IconButton
           className={styles["register-btn"]}
-          text={Locale.Login.Register}
-          //   onClick={() => navigate(Path.Masks)}
+          text={isRegister ? Locale.Login.Login : Locale.Login.Register}
           bordered
+          onClick={() => setIsRegister(!isRegister)}
           shadow
         />
 
         <IconButton
           className={styles["login-btn"]}
-          text={Locale.Login.Done}
-          //   onClick={() => startChat()}
+          text={isRegister ? Locale.Login.RegisterConfirm : Locale.Login.Done}
+          onClick={async () => {
+            setLoginFail(false);
+            setLoginSuccess(false);
+            if (isRegister) {
+              // startChat();
+            } else {
+              var data = await login(loginName, loginPassword);
+              console.log(data);
+              if (data.success) {
+                updateToken(data.data);
+                setLoginSuccess(true);
+                setLoginFail(false);
+              } else {
+                // updateToken("");
+                setLoginFail(true);
+                setLoginSuccess(false);
+              }
+            }
+          }}
           type="primary"
           shadow
         />

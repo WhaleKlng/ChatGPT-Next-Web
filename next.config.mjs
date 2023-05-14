@@ -1,39 +1,48 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
-  async rewrites() {
-    const ret = [
-      {
-        source: "/api/proxy/:path*",
-        destination: "https://api.openai.com/:path*",
-      },
-    ];
+    experimental: {
+        appDir: true,
+    },
+    async rewrites() {
+        const ret = [
+            {
+                source: "/api/proxy/:path*",
+                destination: "https://api.openai.com/:path*",
+            },
+        ];
 
-    const apiUrl = process.env.API_URL;
-    if (apiUrl) {
-      console.log("[Next] using api url ", apiUrl);
-      ret.push({
-        source: "/api/:path*",
-        destination: `${apiUrl}/:path*`,
-      });
-    }
+        const apiUrl = process.env.API_URL;
+        if (apiUrl) {
+            console.log("[Next] using api url ", apiUrl);
+            ret.push({
+                source: "/api/:path*",
+                destination: `${apiUrl}/:path*`,
+            });
+        }
 
-    return {
-      beforeFiles: ret,
-    };
-  },
-  webpack(config) {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
+        const serverUrl = process.env.SERVER_URL;
+        if (serverUrl) {
+            console.log("[Next] using server url ", serverUrl);
+            ret.push({
+                source: "/server/:path*",
+                destination: `${serverUrl}/:path*`,
+            });
+        }
 
-    return config;
-  },
-  output: "standalone",
+        return {
+            beforeFiles: ret,
+        };
+    },
+    webpack(config) {
+        config.module.rules.push({
+            test: /\.svg$/,
+            use: ["@svgr/webpack"],
+        });
+
+        return config;
+    },
+    output: "standalone",
 };
 
 export default nextConfig;
