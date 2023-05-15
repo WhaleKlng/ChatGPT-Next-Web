@@ -19,6 +19,8 @@ export interface AccessControlStore {
   updateUserApiKey: (_: string) => void;
   isAuthorized: () => boolean;
   login: (userName: string, passWord: string) => any;
+  register: (phoneNumber: string, verifyCode: string, password: string) => any;
+  sendVerificationCode: (phoneNumber: string, verificationType: string) => any;
   fetch: () => void;
 }
 
@@ -33,9 +35,37 @@ export const useAccessStore = create<AccessControlStore>()(
         hideUserApiKey: true,
         openaiUrl: "/api/openai/",
 
-        async login(userName: string, passWord: string) {
-          console.log("用户登录");
+        // /user/register
 
+        async register(
+          phoneNumber: string,
+          verifyCode: string,
+          password: string,
+        ) {
+          return await requestServer({
+            url: "/user/register",
+            data: {
+              phoneNumber: phoneNumber,
+              password: password,
+              verificationCode: verifyCode,
+            },
+          });
+        },
+
+        async sendVerificationCode(
+          phoneNumber: string,
+          verificationType: string,
+        ) {
+          return await requestServer({
+            url: "/user/sendVerificationCode",
+            data: {
+              phoneNumber: phoneNumber,
+              verificationType: verificationType,
+            },
+          });
+        },
+
+        async login(userName: string, passWord: string) {
           return await requestServer({
             url: "/user/login",
             data: {

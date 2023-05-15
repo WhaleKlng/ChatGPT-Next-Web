@@ -15,7 +15,7 @@ import Locale from "../locales";
 import { useAccessStore, useAppConfig, useChatStore } from "../store";
 import { MaskAvatar } from "./mask";
 import { useCommand } from "../command";
-import { Toast } from "@/app/components/ui-lib";
+import { showToast, Toast } from "@/app/components/ui-lib";
 import tr from "@/app/locales/tr";
 
 function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
@@ -116,6 +116,7 @@ export function Login() {
 
   const [loginName, setLoginName] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [verifyCode, setVerifyCode] = useState("");
 
   const startChat = (mask?: Mask) => {
     chatStore.newSession(mask);
@@ -155,13 +156,26 @@ export function Login() {
     );
   }
 
-  const [token, updateToken, login] = useAccessStore((state) => [
-    state.token,
-    state.updateToken,
-    state.login,
-  ]);
+  const [token, updateToken, login, sendVerificationCode, register] =
+    useAccessStore((state) => [
+      state.token,
+      state.updateToken,
+      state.login,
+      state.sendVerificationCode,
+      state.register,
+    ]);
   const [loginFail, setLoginFail] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
+  const [remainTime, setRemainTime] = useState(-1);
+  const timerRef = useRef<NodeJS.Timer | null>(null);
+
+  let timer: NodeJS.Timer;
+  useEffect(() => {
+    if (remainTime < 0) {
+      clearInterval(timerRef.current!);
+      setRemainTime(-1);
+    }
+  }, [remainTime]);
 
   return token != "" ? (
     <div className={styles["new-chat"]}>
@@ -207,10 +221,37 @@ export function Login() {
       </div>
       {isRegister ? (
         <div className={styles["verify_code"]}>
-          <input type="text" placeholder={Locale.Login.RegisterPlaceholder} />
+          <input
+            type="text"
+            value={verifyCode}
+            onChange={(e) => setVerifyCode(e.target.value)}
+            placeholder={Locale.Login.RegisterPlaceholder}
+          />
           <IconButton
             className={styles["get_code"]}
-            text={Locale.Login.GetCode}
+            onClick={async () => {
+              if (remainTime >= 0) return;
+              const reg = /^1[3456789]\d{9}$/;
+              if (reg.test(loginName)) {
+                setRemainTime(60);
+                timerRef.current = setInterval(() => {
+                  setRemainTime((count) => count - 1);
+                }, 1000);
+                const data = await sendVerificationCode(
+                  loginName,
+                  "REGISTER_USER",
+                );
+                try {
+                  showToast(data.data);
+                } catch (_) {}
+                console.log(data);
+              } else {
+                showToast("手机号校验失败");
+              }
+            }}
+            text={
+              remainTime == -1 ? Locale.Login.GetCode : "" + remainTime + "s"
+            }
           />
         </div>
       ) : (
@@ -258,18 +299,23 @@ export function Login() {
             setLoginFail(false);
             setLoginSuccess(false);
             if (isRegister) {
-              // startChat();
+              const data = await register(loginName, verifyCode, loginPassword);
+              try {
+                updateToken(data.data);
+                showToast("注册成功！");
+                setLoginSuccess(true);
+                setLoginFail(false);
+              } catch (_) {}
+              console.log(data);
             } else {
-              var data = await login(loginName, loginPassword);
+              const data = await login(loginName, loginPassword);
               console.log(data);
               if (data.success) {
                 updateToken(data.data);
-                setLoginSuccess(true);
                 setLoginFail(false);
               } else {
                 // updateToken("");
                 setLoginFail(true);
-                setLoginSuccess(false);
               }
             }
           }}
