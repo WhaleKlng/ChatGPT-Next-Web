@@ -233,12 +233,25 @@ const en: LocaleType = {
   },
 
   Login: {
-    Title: "Please login",
-    SubTitle: "Welcome to the AI chat system",
-    UserNamePlaceholder: "Username/Phone Number",
-    PasswordPlaceholder: "Password",
-    Done: "Login",
-    Register: "Register",
+    Title: "请登录",
+    RegisterTitle: "欢迎注册",
+    SubTitle: "欢迎使用AI对话系统",
+    RegisterSubTitle: "欢迎注册使用AI对话系统",
+    UserNamePlaceholder: "用户名/手机号",
+    RegisterPhonePlaceholder: "请输入手机号",
+    RegisterPlaceholder: "请输入验证码",
+    PasswordPlaceholder: "密码",
+    Done: "登录",
+    Register: "注册",
+    RegisterConfirm: "完成",
+    GetCode: "获取验证码",
+    Login: "返回登录",
+  },
+  Logined: {
+    Title: "您已登录",
+    SubTitle: "敬请享受AI对话的乐趣吧",
+    Logout: "退出登录",
+    BackHome: "前往主页",
   },
 
   UI: {
